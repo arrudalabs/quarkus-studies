@@ -1,4 +1,4 @@
-##Generating Keys with OpenSSL
+## Generating Keys with OpenSSL
 
 It is also possible to generate a public and private key pair using the OpenSSL command line tool.
 
@@ -14,5 +14,3 @@ An additional step is needed for generating the private key for converting it in
 openssl command for converting private key
 openssl pkcs8 -topk8 -nocrypt -inform pem -in rsaPrivateKey.pem -outform pem -out privateKey.pem
 ```
-
-You can use the generated pair of keys instead of the keys used in this quickstart.
