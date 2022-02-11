@@ -1,5 +1,7 @@
 package io.github.arrudalabs.resources;
 
+import io.github.arrudalabs.entity.RoleName;
+import io.github.arrudalabs.entity.Roles;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import javax.annotation.security.RolesAllowed;
@@ -21,7 +23,7 @@ public class GenericResources {
     @Inject
     JsonWebToken jwt;
 
-    @RolesAllowed("USER")
+    @RolesAllowed({Roles.ADMIN})
     @GET
     @Path("/user")
     @Produces(APPLICATION_JSON)
