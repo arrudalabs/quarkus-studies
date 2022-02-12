@@ -1,4 +1,4 @@
-package io.github.arrudalabs;
+package io.github.arrudalabs.resources;
 
 import io.quarkus.test.junit.NativeImageTest;
 

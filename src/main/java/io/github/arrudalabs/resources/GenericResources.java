@@ -17,9 +17,10 @@ import javax.ws.rs.core.SecurityContext;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Path("/resource")
+@Path("/resources")
 @RequestScoped
 public class GenericResources {
+
     @Inject
     JsonWebToken jwt;
 
