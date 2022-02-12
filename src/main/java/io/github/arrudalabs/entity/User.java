@@ -24,8 +24,8 @@ public class User extends PanacheEntityBase {
         newUser.username = credentials.username;
         newUser.salt = passwordGenerator.generateSalt().getBytes(StandardCharsets.UTF_8);
         newUser.hash = passwordGenerator.generatePassword(credentials.password, new String(newUser.salt, StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
-        newUser.setRoleNames(Optional.ofNullable(roleNames).orElse(Set.of(RoleName.USR)));
         newUser.persist();
+        newUser.setRoleNames(Optional.ofNullable(roleNames).orElse(Set.of(RoleName.USR)));
         return newUser;
     }
 
