@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS public.usrs
     )
     TABLESPACE pg_default;
 
--- Table: public.roleNames
+-- Table: public.roles
 
--- DROP TABLE IF EXISTS public.roleNames;
-CREATE TABLE IF NOT EXISTS public.roleNames
+-- DROP TABLE IF EXISTS public.roles;
+CREATE TABLE IF NOT EXISTS public.roles
 (
     usr  character(15) COLLATE pg_catalog."default" NOT NULL,
     role_name character(3) COLLATE pg_catalog."default"  NOT NULL,
