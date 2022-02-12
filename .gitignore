@@ -17,6 +17,8 @@ bin/
 *.iml
 *.iws
 
+.db_data/
+
 # NetBeans
 nb-configuration.xml
 
