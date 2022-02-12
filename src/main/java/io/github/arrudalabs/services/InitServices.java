@@ -2,6 +2,7 @@ package io.github.arrudalabs.services;
 
 import io.github.arrudalabs.entity.RoleName;
 import io.github.arrudalabs.entity.User;
+import io.github.arrudalabs.security.PasswordGenerator;
 import io.github.arrudalabs.vo.Credentials;
 import io.quarkus.runtime.StartupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -18,14 +19,14 @@ public class InitServices {
     private static final Logger LOGGER = Logger.getLogger("InitServices");
 
     private String adminDefaultPassword;
-    private final PasswordGeneratorService passwordGeneratorService;
+    private final PasswordGenerator passwordGenerator;
 
     public InitServices(
             @ConfigProperty(name = "admin.password", defaultValue = "shoto") final String adminDefaultPassword,
-            final PasswordGeneratorService passwordGeneratorService
+            final PasswordGenerator passwordGenerator
     ) {
         this.adminDefaultPassword = adminDefaultPassword;
-        this.passwordGeneratorService = passwordGeneratorService;
+        this.passwordGenerator = passwordGenerator;
     }
 
     @Transactional
@@ -37,10 +38,10 @@ public class InitServices {
             User.createUser(
                     Credentials.of("admin", adminDefaultPassword),
                     Set.of(RoleName.ADM),
-                    passwordGeneratorService);
+                    passwordGenerator);
         } else {
             LOGGER.info("changing admin password...");
-            admin.forceChangePassword(adminDefaultPassword, passwordGeneratorService);
+            admin.forceChangePassword(adminDefaultPassword, passwordGenerator);
             admin.setRoleNames(Set.of(RoleName.ADM));
         }
     }

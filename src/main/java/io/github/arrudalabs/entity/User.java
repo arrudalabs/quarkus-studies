@@ -1,6 +1,6 @@
 package io.github.arrudalabs.entity;
 
-import io.github.arrudalabs.services.PasswordGeneratorService;
+import io.github.arrudalabs.security.PasswordGenerator;
 import io.github.arrudalabs.vo.Credentials;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -19,11 +19,11 @@ public class User extends PanacheEntityBase {
 
     public static User createUser(Credentials credentials,
                                   Set<RoleName> roleNames,
-                                  PasswordGeneratorService passwordGeneratorService) {
+                                  PasswordGenerator passwordGenerator) {
         var newUser = new User();
         newUser.username = credentials.username;
-        newUser.salt = passwordGeneratorService.generateSalt().getBytes(StandardCharsets.UTF_8);
-        newUser.hash = passwordGeneratorService.generatePassword(credentials.password, new String(newUser.salt, StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
+        newUser.salt = passwordGenerator.generateSalt().getBytes(StandardCharsets.UTF_8);
+        newUser.hash = passwordGenerator.generatePassword(credentials.password, new String(newUser.salt, StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
         newUser.setRoleNames(Optional.ofNullable(roleNames).orElse(Set.of(RoleName.USR)));
         newUser.persist();
         return newUser;
@@ -48,16 +48,16 @@ public class User extends PanacheEntityBase {
      * Do not use it! It's only InitServices bootstrap
      *
      * @param newPassword
-     * @param passwordGeneratorService
+     * @param passwordGenerator
      */
     @Deprecated
-    public void forceChangePassword(String newPassword, PasswordGeneratorService passwordGeneratorService) {
-        this.hash = passwordGeneratorService.generatePassword(newPassword, new String(this.salt, StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
+    public void forceChangePassword(String newPassword, PasswordGenerator passwordGenerator) {
+        this.hash = passwordGenerator.generatePassword(newPassword, new String(this.salt, StandardCharsets.UTF_8)).getBytes(StandardCharsets.UTF_8);
         this.persist();
     }
 
     public static Optional<User> authenticate(Credentials credentials,
-                                              PasswordGeneratorService passwordGeneratorService) {
+                                              PasswordGenerator passwordGenerator) {
 
         User foundUser = User.findById(credentials.username);
 
@@ -65,7 +65,7 @@ public class User extends PanacheEntityBase {
             return Optional.empty();
         }
 
-        String generatePassword = passwordGeneratorService.generatePassword(credentials.password, new String(foundUser.salt, StandardCharsets.UTF_8));
+        String generatePassword = passwordGenerator.generatePassword(credentials.password, new String(foundUser.salt, StandardCharsets.UTF_8));
 
         if (!new String(foundUser.hash, StandardCharsets.UTF_8).equals(generatePassword)) {
             return Optional.empty();

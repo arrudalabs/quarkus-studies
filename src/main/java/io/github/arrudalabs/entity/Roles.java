@@ -20,7 +20,7 @@ public class Roles extends PanacheEntityBase implements Serializable {
     public String username;
     @Id
     @NotNull
-    @Column(name = "role", updatable = false)
+    @Column(name = "role_name", updatable = false)
     @Enumerated(EnumType.STRING)
     public RoleName role;
 

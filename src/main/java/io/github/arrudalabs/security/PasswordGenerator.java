@@ -1,4 +1,4 @@
-package io.github.arrudalabs.services;
+package io.github.arrudalabs.security;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
@@ -15,7 +15,7 @@ import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
-public class PasswordGeneratorService {
+public class PasswordGenerator {
     // CONSTANTS RELATED TO SALT PROPERTY
     public static final String SALT_SIZE_PROPERTY = "services.PasswordGeneratorService.saltSize";
     public static final int SALT_SIZE_DEFAULT_VALUE = 16;
@@ -39,7 +39,7 @@ public class PasswordGeneratorService {
     private final int keyLength;
     private final SecretKeyFactory secretKeyFactory;
 
-    public PasswordGeneratorService(
+    public PasswordGenerator(
         @ConfigProperty(name = SALT_SIZE_PROPERTY)
         final Optional<Integer> saltSizeProperty,
         @ConfigProperty(name = SECRET_KEY_ALGORITHM_PROPERTY, defaultValue = SECRET_KEY_ALGORITHM_DEFAULT_VALUE)

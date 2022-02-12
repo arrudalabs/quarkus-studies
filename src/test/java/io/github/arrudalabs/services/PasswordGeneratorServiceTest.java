@@ -1,5 +1,6 @@
 package io.github.arrudalabs.services;
 
+import io.github.arrudalabs.security.PasswordGenerator;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PasswordGeneratorServiceTest {
 
     @Inject
-    PasswordGeneratorService passwordGeneratorService;
+    PasswordGenerator passwordGenerator;
 
     @Test
     public void testGenerateSalt() {
         final var saltSet = IntStream.range(0, 5)
                 .boxed()
-                .map(v -> passwordGeneratorService.generateSalt()).collect(Collectors.toSet());
+                .map(v -> passwordGenerator.generateSalt()).collect(Collectors.toSet());
         assertEquals(
                 5,
                 saltSet.size(),
@@ -40,7 +41,7 @@ public class PasswordGeneratorServiceTest {
             final String plainTextPassword,
             final String expectedPassword
     ) {
-        var encryptedPasswd = passwordGeneratorService.generatePassword(plainTextPassword, salt);
+        var encryptedPasswd = passwordGenerator.generatePassword(plainTextPassword, salt);
         assertEquals(expectedPassword, encryptedPasswd);
     }
 }

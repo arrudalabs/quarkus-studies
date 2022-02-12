@@ -14,13 +14,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class TokenUtils {
+public class JwtTokenBuilder {
 
     private final String privateKeyId = UUID.randomUUID().toString();
     @ConfigProperty(name = "jwt.private.key")
     private String privateKey;
 
-    public String generateToken(String username, Set<String> roles, Long duration, String issuer) throws Exception {
+    public String generateToken(String username, Set<String> roles, Long durationInMinutes, String issuer) throws Exception {
         PrivateKey privateKey = decodePrivateKey();
 
         JwtClaimsBuilder claimsBuilder = Jwt.claims();
@@ -32,7 +32,7 @@ public class TokenUtils {
         claimsBuilder.issuer(issuer);
         claimsBuilder.subject(username);
         claimsBuilder.issuedAt(currentTimeInSecs);
-        claimsBuilder.expiresAt(currentTimeInSecs + duration);
+        claimsBuilder.expiresAt(currentTimeInSecs + (durationInMinutes));
         claimsBuilder.groups(groups);
 
         return claimsBuilder.jws().keyId(privateKeyId).sign(privateKey);

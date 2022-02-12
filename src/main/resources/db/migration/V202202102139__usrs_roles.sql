@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS public.usrs
 CREATE TABLE IF NOT EXISTS public.roleNames
 (
     usr  character(15) COLLATE pg_catalog."default" NOT NULL,
-    roleName character(3) COLLATE pg_catalog."default"  NOT NULL,
-    CONSTRAINT roles_pkey PRIMARY KEY (usr, roleName),
+    role_name character(3) COLLATE pg_catalog."default"  NOT NULL,
+    CONSTRAINT roles_pkey PRIMARY KEY (usr, role_name),
     CONSTRAINT fk_user FOREIGN KEY (usr) REFERENCES public.usrs (usr) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE
