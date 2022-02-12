@@ -17,5 +17,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Checking npm and yarn installation
+        run: ./mvnw clean package -DskipTests -B -Dui.deps
       - name: Build
-        run: ./mvnw verify -B -Dui
+        run: ./mvnw clean verify -B -Dui
