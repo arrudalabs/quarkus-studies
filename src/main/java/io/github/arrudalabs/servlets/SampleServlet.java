@@ -10,9 +10,12 @@ import java.net.Socket;
 
 @WebServlet(urlPatterns = {"/servlet/*"})
 public class SampleServlet extends HttpServlet {
+    public static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
+
+
         if (path.equals("/make-external-call")) {
             // Fake making an external call without involving the UI
             // e.g. OAuth Authentication Flow will have a few of these, resulting in 
@@ -25,7 +28,17 @@ public class SampleServlet extends HttpServlet {
             boolean proxy = Boolean.getBoolean("ui.proxy");
             if (proxy && checkProxyIsRunning()) {
                 redirectPath = "http://localhost:4200" + redirectPath;
+                return;
             }
+
+            if (req.getHeader(X_FORWARDED_PROTO) != null) {
+                if (req.getHeader(X_FORWARDED_PROTO).indexOf("https") != 0) {
+                    String pathInfo = (req.getPathInfo() != null) ? req.getPathInfo() : "";
+                    resp.sendRedirect("https://" + req.getServerName() + redirectPath);
+                    return;
+                }
+            }
+
             resp.sendRedirect(redirectPath);
         } else {
             resp.sendError(404);
