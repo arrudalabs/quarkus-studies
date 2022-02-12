@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequestScoped
-@Path("/resource")
+@Path("/resources")
 public class LoginResource {
 
     @Inject
