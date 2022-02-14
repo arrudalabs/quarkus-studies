@@ -1,4 +1,4 @@
-package io.github.arrudalabs.entity;
+package io.github.arrudalabs.mizudo.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 

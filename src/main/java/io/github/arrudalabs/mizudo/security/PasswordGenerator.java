@@ -1,4 +1,4 @@
-package io.github.arrudalabs.security;
+package io.github.arrudalabs.mizudo.security;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;

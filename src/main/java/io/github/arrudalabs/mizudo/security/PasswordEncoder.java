@@ -1,4 +1,4 @@
-package io.github.arrudalabs.security;
+package io.github.arrudalabs.mizudo.security;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

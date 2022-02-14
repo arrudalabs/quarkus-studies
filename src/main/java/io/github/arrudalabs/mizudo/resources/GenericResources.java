@@ -1,7 +1,6 @@
-package io.github.arrudalabs.resources;
+package io.github.arrudalabs.mizudo.resources;
 
-import io.github.arrudalabs.entity.RoleName;
-import io.github.arrudalabs.entity.Roles;
+import io.github.arrudalabs.mizudo.entity.Roles;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import javax.annotation.security.RolesAllowed;
@@ -51,7 +50,6 @@ public class GenericResources {
     @Path("/user-or-admin")
     @Produces(APPLICATION_JSON)
     public Response userOrAdmin(@Context SecurityContext ctx) {
-
         return Response.ok(
                 Json.createObjectBuilder()
                         .add("message","Content for user and admin - ")
