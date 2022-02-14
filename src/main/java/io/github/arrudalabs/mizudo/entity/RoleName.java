@@ -1,4 +1,4 @@
-package io.github.arrudalabs.entity;
+package io.github.arrudalabs.mizudo.entity;
 
 public enum RoleName {
 

@@ -1,7 +1,7 @@
-package io.github.arrudalabs.entity;
+package io.github.arrudalabs.mizudo.entity;
 
-import io.github.arrudalabs.security.PasswordGenerator;
-import io.github.arrudalabs.vo.Credentials;
+import io.github.arrudalabs.mizudo.security.PasswordGenerator;
+import io.github.arrudalabs.mizudo.vo.Credentials;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;

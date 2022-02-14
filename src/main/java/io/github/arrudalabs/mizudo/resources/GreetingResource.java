@@ -1,4 +1,4 @@
-package io.github.arrudalabs.resources;
+package io.github.arrudalabs.mizudo.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

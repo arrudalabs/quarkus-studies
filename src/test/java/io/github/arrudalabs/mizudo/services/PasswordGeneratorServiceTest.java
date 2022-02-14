@@ -1,6 +1,6 @@
-package io.github.arrudalabs.services;
+package io.github.arrudalabs.mizudo.services;
 
-import io.github.arrudalabs.security.PasswordGenerator;
+import io.github.arrudalabs.mizudo.security.PasswordGenerator;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

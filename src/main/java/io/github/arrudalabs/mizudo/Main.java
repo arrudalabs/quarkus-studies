@@ -1,4 +1,4 @@
-package io.github.arrudalabs;
+package io.github.arrudalabs.mizudo;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;

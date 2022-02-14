@@ -1,4 +1,4 @@
-package io.github.arrudalabs.filters;
+package io.github.arrudalabs.mizudo.filters;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

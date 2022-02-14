@@ -1,4 +1,4 @@
-package io.github.arrudalabs.vo;
+package io.github.arrudalabs.mizudo.vo;
 
 public class AuthResponse {
 

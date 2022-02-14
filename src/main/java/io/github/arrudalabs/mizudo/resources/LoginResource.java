@@ -1,11 +1,11 @@
-package io.github.arrudalabs.resources;
+package io.github.arrudalabs.mizudo.resources;
 
-import io.github.arrudalabs.entity.RoleName;
-import io.github.arrudalabs.entity.User;
-import io.github.arrudalabs.security.PasswordGenerator;
-import io.github.arrudalabs.vo.AuthResponse;
-import io.github.arrudalabs.vo.Credentials;
-import io.github.arrudalabs.security.JwtTokenBuilder;
+import io.github.arrudalabs.mizudo.entity.RoleName;
+import io.github.arrudalabs.mizudo.entity.User;
+import io.github.arrudalabs.mizudo.security.PasswordGenerator;
+import io.github.arrudalabs.mizudo.vo.AuthResponse;
+import io.github.arrudalabs.mizudo.vo.Credentials;
+import io.github.arrudalabs.mizudo.security.JwtTokenBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.RequestScoped;

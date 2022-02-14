@@ -1,4 +1,4 @@
-package io.github.arrudalabs.servlets;
+package io.github.arrudalabs.mizudo.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 @WebServlet(urlPatterns = {"/servlet/*"})
-public class SampleServlet extends HttpServlet {
+public class CallBackRedirectServlet extends HttpServlet {
     public static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +33,6 @@ public class SampleServlet extends HttpServlet {
 
             if (req.getHeader(X_FORWARDED_PROTO) != null) {
                 if (req.getHeader(X_FORWARDED_PROTO).indexOf("https") != 0) {
-                    String pathInfo = (req.getPathInfo() != null) ? req.getPathInfo() : "";
                     resp.sendRedirect("https://" + req.getServerName() + redirectPath);
                     return;
                 }

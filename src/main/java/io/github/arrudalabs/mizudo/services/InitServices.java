@@ -1,9 +1,9 @@
-package io.github.arrudalabs.services;
+package io.github.arrudalabs.mizudo.services;
 
-import io.github.arrudalabs.entity.RoleName;
-import io.github.arrudalabs.entity.User;
-import io.github.arrudalabs.security.PasswordGenerator;
-import io.github.arrudalabs.vo.Credentials;
+import io.github.arrudalabs.mizudo.entity.RoleName;
+import io.github.arrudalabs.mizudo.entity.User;
+import io.github.arrudalabs.mizudo.security.PasswordGenerator;
+import io.github.arrudalabs.mizudo.vo.Credentials;
 import io.quarkus.runtime.StartupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
