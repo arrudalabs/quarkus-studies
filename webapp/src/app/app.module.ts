@@ -8,6 +8,8 @@ import { DefaultComponent } from './components/default/default.component';
 import { OtherComponent } from './components/other/other.component';
 import { RestComponent } from './components/rest/rest.component';
 import { ClientCallbackComponent } from './components/client-callback/client-callback.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,13 @@ import { ClientCallbackComponent } from './components/client-callback/client-cal
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
