@@ -1,0 +1,1 @@
+ALTER table public.alunos RENAME TO membros;
