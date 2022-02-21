@@ -18,10 +18,10 @@ public class JwtTokenBuilder {
 
     private final String privateKeyId = UUID.randomUUID().toString();
     @ConfigProperty(name = "jwt.private.key")
-    private String privateKey;
+    protected String privateKey;
 
-    public String generateToken(String username, Set<String> roles, Long durationInMinutes, String issuer) throws Exception {
-        PrivateKey privateKey = decodePrivateKey();
+    public String geraToken(String username, Set<String> roles, Long durationInMinutes, String issuer) throws Exception {
+        PrivateKey privateKey = createPrivateKey();
 
         JwtClaimsBuilder claimsBuilder = Jwt.claims();
         long currentTimeInSecs = currentTimeInSecs();
@@ -39,7 +39,7 @@ public class JwtTokenBuilder {
     }
 
 
-    public PrivateKey decodePrivateKey() throws Exception {
+    public PrivateKey createPrivateKey() throws Exception {
         byte[] encodedBytes = toEncodedBytes(this.privateKey);
 
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encodedBytes);

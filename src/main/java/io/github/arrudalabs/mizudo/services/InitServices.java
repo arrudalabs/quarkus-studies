@@ -1,7 +1,8 @@
 package io.github.arrudalabs.mizudo.services;
 
-import io.github.arrudalabs.mizudo.entity.RoleName;
-import io.github.arrudalabs.mizudo.entity.User;
+import io.github.arrudalabs.mizudo.entity.Membro;
+import io.github.arrudalabs.mizudo.entity.Role;
+import io.github.arrudalabs.mizudo.entity.Usuario;
 import io.github.arrudalabs.mizudo.security.PasswordGenerator;
 import io.github.arrudalabs.mizudo.vo.Credentials;
 import io.quarkus.runtime.StartupEvent;
@@ -32,17 +33,30 @@ public class InitServices {
     @Transactional
     public void onStart(@Observes StartupEvent event) {
         LOGGER.info("The application is starting...");
-        User admin = User.findById("admin");
-        if (admin == null) {
-            LOGGER.info("it's missing admin user... creating this one...");
-            User.createUser(
+        Usuario adminUser = Usuario.buscarPorUsername("admin");
+        if (adminUser == null) {
+            LOGGER.info("it's missing adminUser user... creating this one...");
+            Membro membroAdmin = Membro.criarMembro("Administrador do sistema","admin");
+            Usuario.defineUsuario(
+                    membroAdmin,
                     Credentials.of("admin", adminDefaultPassword),
-                    Set.of(RoleName.ADM),
+                    Set.of(Role.Administrador),
                     passwordGenerator);
         } else {
-            LOGGER.info("changing admin password...");
-            admin.forceChangePassword(adminDefaultPassword, passwordGenerator);
-            admin.setRoleNames(Set.of(RoleName.ADM));
+            LOGGER.info("changing adminUser password...");
+            adminUser.forceAtualizacaoDeSenha(adminDefaultPassword, passwordGenerator);
+            adminUser.defineRoles(Set.of(Role.Administrador));
+        }
+
+        Usuario dummyUser = Usuario.buscarPorUsername("user");
+        if (dummyUser == null) {
+            LOGGER.info("it's missing dummy user... creating this one...");
+            Membro membroAdmin = Membro.criarMembro("Usuário Simples","user");
+            Usuario.defineUsuario(
+                    membroAdmin,
+                    Credentials.of("user", adminDefaultPassword),
+                    Set.of(Role.Convidado),
+                    passwordGenerator);
         }
     }
 }

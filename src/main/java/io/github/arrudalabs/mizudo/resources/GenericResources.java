@@ -1,6 +1,6 @@
 package io.github.arrudalabs.mizudo.resources;
 
-import io.github.arrudalabs.mizudo.entity.Roles;
+import io.github.arrudalabs.mizudo.entity.Usuario;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import javax.annotation.security.RolesAllowed;
@@ -22,37 +22,68 @@ public class GenericResources {
 
     @Inject
     JsonWebToken jwt;
-
-    @RolesAllowed({Roles.ADMIN})
+    @RolesAllowed({Usuario.ADMINISTRADOR})
     @GET
-    @Path("/user")
+    @Path("/admin-only")
     @Produces(APPLICATION_JSON)
-    public Response user() {
+    public Response user(
+            @Context SecurityContext ctx
+    ) {
         return Response.ok(
                 Json.createObjectBuilder()
-                        .add("message","Content for user")
+                        .add("message", "Content for user " + ctx.getUserPrincipal().getName())
                         .build()).build();
     }
 
-    @RolesAllowed("ADMIN")
+    @RolesAllowed({Usuario.COORDENADOR})
     @GET
-    @Path("/admin")
+    @Path("/coordenador")
     @Produces(APPLICATION_JSON)
-    public Response admin() {
+    public Response coordenador(
+            @Context SecurityContext ctx
+    ) {
         return Response.ok(
                 Json.createObjectBuilder()
-                        .add("message","Content for admin")
+                        .add("message", "Content for user " + ctx.getUserPrincipal().getName())
                         .build()).build();
     }
 
-    @RolesAllowed({"USER", "ADMIN"})
+    @RolesAllowed({Usuario.CONVIDADO})
     @GET
-    @Path("/user-or-admin")
+    @Path("/convidado")
     @Produces(APPLICATION_JSON)
-    public Response userOrAdmin(@Context SecurityContext ctx) {
+    public Response convidado(
+            @Context SecurityContext ctx
+    ) {
         return Response.ok(
                 Json.createObjectBuilder()
-                        .add("message","Content for user and admin - ")
+                        .add("message", "Content for user " + ctx.getUserPrincipal().getName())
+                        .build()).build();
+    }
+
+    @RolesAllowed({Usuario.EXAMINADOR})
+    @GET
+    @Path("/examinador")
+    @Produces(APPLICATION_JSON)
+    public Response examinador(
+            @Context SecurityContext ctx
+    ) {
+        return Response.ok(
+                Json.createObjectBuilder()
+                        .add("message", "Content for user " + ctx.getUserPrincipal().getName())
+                        .build()).build();
+    }
+
+    @RolesAllowed({Usuario.INSTRUTOR})
+    @GET
+    @Path("/instrutor")
+    @Produces(APPLICATION_JSON)
+    public Response instrutor(
+            @Context SecurityContext ctx
+    ) {
+        return Response.ok(
+                Json.createObjectBuilder()
+                        .add("message", "Content for user " + ctx.getUserPrincipal().getName())
                         .build()).build();
     }
 }

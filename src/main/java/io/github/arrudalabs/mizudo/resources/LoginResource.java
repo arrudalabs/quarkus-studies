@@ -1,7 +1,7 @@
 package io.github.arrudalabs.mizudo.resources;
 
-import io.github.arrudalabs.mizudo.entity.RoleName;
-import io.github.arrudalabs.mizudo.entity.User;
+import io.github.arrudalabs.mizudo.entity.Role;
+import io.github.arrudalabs.mizudo.entity.Usuario;
 import io.github.arrudalabs.mizudo.security.PasswordGenerator;
 import io.github.arrudalabs.mizudo.vo.AuthResponse;
 import io.github.arrudalabs.mizudo.vo.Credentials;
@@ -41,12 +41,12 @@ public class LoginResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response login(@Valid Credentials credentials) {
 
-        Optional<User> authenticatedUser = User.authenticate(credentials, passwordGenerator);
-        if (authenticatedUser.isPresent()) {
-            Set<String> roles = authenticatedUser.get()
-                    .getRoleNames().stream().map(RoleName::fullName).collect(Collectors.toSet());;
+        Optional<Usuario> usuarioAutenticado = Usuario.autentique(credentials, passwordGenerator);
+        if (usuarioAutenticado.isPresent()) {
+            Set<String> roles = usuarioAutenticado.get()
+                    .roles().stream().map(Role::fullName).collect(Collectors.toSet());;
             try {
-                String token = jwtTokenBuilder.generateToken(authenticatedUser.get().username, roles, duration, issuer);
+                String token = jwtTokenBuilder.geraToken(usuarioAutenticado.get().username, roles, duration, issuer);
                 return Response.ok(new AuthResponse(token)).build();
             } catch (Exception e) {
                 throw new WebApplicationException(e);
